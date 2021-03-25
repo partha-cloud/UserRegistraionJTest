@@ -38,4 +38,20 @@ public class UserRegistration {
             System.out.println("Name is Invalid");
         }
     }
+
+    public static void validEmail()
+    {
+        System.out.println("Enter Your Email");
+        String name = scan.next();
+        System.out.println("The Email is: " + name);
+        String pattern = "^[a-zA-Z0-9]+([.+-_][a-zA-Z0-9]+)*@[a-zA-z0-9]+.[a-zA-Z]{2}([.][a-zA-Z]{2,4}){0,1}$";
+        if( name.matches(pattern))
+        {
+            System.out.println("Name is Valid");
+        }
+        else
+        {
+            System.out.println("Name is Invalid");
+        }
+    }
 }
