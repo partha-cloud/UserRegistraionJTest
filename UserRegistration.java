@@ -5,7 +5,7 @@ public class UserRegistration {
 
     private static final Scanner scan = new Scanner(System.in);
     public static  void main(String[] args) {
-        validateUserData(); 
+        validateUserData();
     }
     public static void validateUserData()
     {
@@ -71,5 +71,21 @@ public class UserRegistration {
             System.out.println("Name is Invalid");
         }
     }
-}
 
+    public static void validPassword()
+    {
+        System.out.println("Enter Your Password.");
+        String name = scan.nextLine();
+
+        System.out.println("The Password is: " + name);
+        String pattern =  "^[A-Za-z0-9]{8,}$";
+        if( name.matches(pattern))
+        {
+            System.out.println("Name is Valid");
+        }
+        else
+        {
+            System.out.println("Name is Invalid");
+        }
+    }
+}
