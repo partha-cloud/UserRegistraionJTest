@@ -88,4 +88,20 @@ public class UserRegistration {
             System.out.println("Name is Invalid");
         }
     }
+    public static void passwordAtLeastOneUpperCase()
+    {
+        System.out.println("Enter Your Password.");
+        String name = scan.nextLine();
+
+        System.out.println("The Password is: " + name);
+        String pattern =  "^(.*[A-Z]{1}[A-Za-z0-9]{7,})$";
+        if( name.matches(pattern))
+        {
+            System.out.println("Name is Valid");
+        }
+        else
+        {
+            System.out.println("Name is Invalid");
+        }
+    }
 }
