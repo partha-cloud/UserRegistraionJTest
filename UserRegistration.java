@@ -1,111 +1,179 @@
-package UserRegistration;
-import java.util.Scanner;
-import java.lang.*;
-public class UserRegistration {
+package com.bridgelabz.userregistrationtest;
 
-    private static final Scanner scan = new Scanner(System.in);
-    public static  void main(String[] args)
+import com.bridgelabz.userregistrationgradle.UserRegistrationGradle;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-    {
-        //calling method to validate first Name
-        validateUserData();
-        //calling method to validate Last  Name
-        validateUserLastName();
-        //calling method to validate Email Id
-        validEmail();
-        //calling method to validate Mobile No
-        validMobileNo();
-        //calling method to validate Password rule1
-        validPassword();
+public class UserRegistrationTest {
+
+    UserRegistrationGradle userRegistrationGradle = new UserRegistrationGradle();
+
+    //Starts First Name Test Cases
+    @Test
+    public void givenFirstName_whenValid_ReturnHappy() throws Exception {
+        String validationResult = userRegistrationGradle.validateFirstName("Partha");
+        Assertions.assertEquals("HAPPY", validationResult);
     }
 
-    //Define method to validate first name
-    public static void validateUserData()
-    {
-        System.out.println("Enter Your First name");
-        String name = scan.nextLine();
-
-        System.out.println("The first name is: " + name);
-        String pattern = "^([A-Z]{1})([a-z]{2,})$";
-        if( name.matches(pattern))
-        {
-            System.out.println("Name is Valid");
-        }
-        else
-        {
-            System.out.println("Name is Invalid");
-        }
-    }
-    //Define method to validate Last name
-    public static void validateUserLastName()
-    {
-        System.out.println("Enter Your Last name");
-        String name = scan.nextLine();
-
-        System.out.println("The Last name is: " + name);
-        String pattern = "^([A-Z]{1})([a-z]{2,})$";
-        if( name.matches(pattern))
-        {
-            System.out.println("Name is Valid");
-        }
-        else
-        {
-            System.out.println("Name is Invalid");
+    @Test
+    public void givenFirstName_whenLessThanThreeLetters_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateFirstName("Pa");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid User First Name", e.getMessage());
         }
     }
 
-    //Define method to validate email id
-    public static void validEmail()
-    {
-        System.out.println("Enter Your Email");
-        String name = scan.nextLine();
-
-        System.out.println("The Email is: " + name);
-        String pattern = "^([a-z]{3,})([\'.\'-\'+]{0,1}[a-z0-9]*)@([a-z]{1,4}).([a-z]{2,3})(^[.]{0,1}[a-z]{2,3}){0,1}$";
-        if( name.matches(pattern))
-        {
-            System.out.println("Name is Valid");
-        }
-        else
-        {
-            System.out.println("Name is Invalid");
+    @Test
+    public void givenFirstName_whenFirstLetterNotCaps_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateFirstName("partha");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid User First Name", e.getMessage());
         }
     }
 
-    //Define method to validate Mobile No.
-    public static void validMobileNo()
-    {
-        System.out.println("Enter Your Mobile No.");
-        String name = scan.nextLine();
+    //Starts Last Name Use Cases
+    @Test
+    public void givenLastName_whenValid_ReturnHappy() throws Exception {
+        String validationResult = userRegistrationGradle.validateLastName("Dey");
+        Assertions.assertEquals("HAPPY", validationResult);
+    }
 
-        System.out.println("The Mobile No is: " + name);
-        String pattern =  "^([0-9]{2})[ ]([1-9]{1}[0-9]{9})$";
-        if( name.matches(pattern))
-        {
-            System.out.println("Name is Valid");
-        }
-        else
-        {
-            System.out.println("Name is Invalid");
+    @Test
+    public void givenLastName_whenLessThanThreeLetters_ReturnSad() throws Exception {
+        try {
+            String validationResult = userRegistrationGradle.validateLastName("de");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid User Last Name", e.getMessage());
         }
     }
 
-    //Define method to validate Password
-    public static void validPassword()
-    {
-        System.out.println("Enter Your Password.");
-        String name = scan.nextLine();
-
-        System.out.println("The Password is: " + name);
-        String pattern =  "^(.*[A-Z]{1,}.*[0-9]{1,}.*[~!@#$%^&*]?[A-Za-z0-9]{5,})$";
-        if( name.matches(pattern))
-        {
-            System.out.println("Name is Valid");
-        }
-        else
-        {
-            System.out.println("Name is Invalid");
+    @Test
+    public void givenLastName_whenFirstLetterNotCaps_ReturnSad() throws Exception {
+        try {
+            String validationResult = userRegistrationGradle.validateLastName("DEY");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid User Last Name", e.getMessage());
         }
     }
 
-}
+    //Starts Email Test Cases
+    @Test
+    public void givenEmail_whenValid_ReturnHappy() throws Exception {
+        String validationResult = userRegistrationGradle.validateEmail("PARTHA11DEY@GMAIL.COM");
+        Assertions.assertEquals("HAPPY", validationResult);
+    }
+
+    @Test
+    public void givenEmail_whenStartsWithSpecialChar_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateEmail("-partha11dey@gmail.com");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid User Email", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenEmail_whenAtTheRateIsNotGiven_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateEmail("partha11dey@gmail.com");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid User Email", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenEmail_whenTLDIsNotGiven_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateEmail("partha11dey@gmail.com");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid User Email", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenEmail_whenTwoSpecialCharsAreUsedConsecutively_ReturnSad() throws Exception{
+        try{
+            String validationResult = userRegistrationGradle.validateEmail("partha-.dey@gmail.com");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid User Email", e.getMessage());
+        }
+    }
+
+    //Starts Phone Number Test Cases
+    @Test
+    public void givenPhoneNumber_whenValid_ReturnHappy() throws Exception{
+        String validationResult = userRegistrationGradle.validateMobNum("91 8105405386");
+        Assertions.assertEquals("HAPPY", validationResult);
+    }
+
+    @Test
+    public void givenPhoneNumber_whenSpaceAfterCountryNotGiven_ReturnSad() throws Exception{
+        try{
+            String validationResult = userRegistrationGradle.validateMobNum("8105405387");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid Mobile Number", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenPhoneNumber_whenPhoneNumberLengthIsMoreThanTen_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateMobNum("91 8105405388");
+        }catch (Exception e){
+            Assertions.assertEquals("Invalid Mobile Number", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenPhoneNumber_whenCountryCodeIsNotGiven_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validateMobNum(" 8105405389");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid Mobile Number", e.getMessage());
+        }
+    }
+
+    //Starts Password Test Cases
+    @Test
+    public void givenPassword_whenValid_ReturnHappy() throws Exception{
+        String validationResult = userRegistrationGradle.validatePassword("Partha@1234");
+        Assertions.assertEquals("HAPPY", validationResult);
+    }
+
+    @Test
+    public void givenPassword_whenNoNumberIsGiven_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validatePassword("Partha");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid Password", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenPassword_whenNoSpecialCharIsGiven_ReturnSad() throws Exception{
+        try{
+            String validationResult = userRegistrationGradle.validatePassword("aKashSaxena16");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid Password", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenPassword_whenNoCapitalCharIsGiven_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validatePassword("partha@1234");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid Password", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenPassword_whenLengthIsLessThanEight_ReturnSad() throws Exception{
+        try {
+            String validationResult = userRegistrationGradle.validatePassword("Part");
+        }catch (Exception e) {
+            Assertions.assertEquals("Invalid Password", e.getMessage());
+        }
+    }
